@@ -1,0 +1,283 @@
+/* ===== Reset & Base Styles ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+}
+
+/* ===== A-Frame Scene ===== */
+#ar-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Исправление для видео с камеры */
+/* AR.js automatically styles the video, we just ensure z-index layering */
+.a-canvas {
+  z-index: 1 !important;
+}
+
+video {
+  z-index: -1 !important;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+/* ===== UI Overlay ===== */
+#ui-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  pointer-events: none;
+}
+
+#ui-overlay>* {
+  pointer-events: auto;
+}
+
+.overlay-panel {
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.overlay-panel.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-20px);
+}
+
+/* ===== Instructions Panel ===== */
+#instructions {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  padding: 40px 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.instruction-content h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 16px;
+}
+
+.instruction-content p {
+  font-size: 16px;
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+/* ===== Buttons ===== */
+.primary-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 32px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(102, 126, 234, 0.5);
+}
+
+.primary-button:active {
+  transform: translateY(0);
+}
+
+.button-icon {
+  font-size: 24px;
+}
+
+/* ===== Loading Indicator ===== */
+#loading {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px 40px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#loading p {
+  font-size: 16px;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+/* ===== AR Instructions ===== */
+#ar-instructions {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 16px 24px;
+  max-width: 90%;
+  width: auto;
+}
+
+.ar-help p {
+  color: white;
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 4px 0;
+  text-align: center;
+}
+
+/* ===== Control Buttons ===== */
+#controls {
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.control-button {
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.control-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+}
+
+.control-button:active {
+  transform: translateY(0);
+}
+
+.control-button span {
+  font-size: 18px;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 480px) {
+  .instruction-content h2 {
+    font-size: 24px;
+  }
+
+  .instruction-content p {
+    font-size: 14px;
+  }
+
+  .primary-button {
+    font-size: 16px;
+    padding: 14px 24px;
+  }
+
+  .ar-help p {
+    font-size: 12px;
+  }
+
+  .control-button {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+}
+
+/* ===== Glassmorphism Effects ===== */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease;
+}
+
+/* ===== Accessibility ===== */
+button:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

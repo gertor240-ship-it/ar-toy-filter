@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AR Toy Filter</title>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <!-- Подключаем скрипт жестов -->
+    <script src="./src/gesture-handler.js"></script>
+</head>
+
+<body style="margin : 0px; overflow: hidden;">
+    <!-- Добавляем gesture-detector в сцену -->
+    <a-scene embedded arjs vr-mode-ui="enabled: false" gesture-detector renderer="logarithmicDepthBuffer: true;">
+
+        <!-- Маркер Hiro -->
+        <!-- raycaster и cursor нужны для обработки касаний -->
+        <a-marker preset="hiro" raycaster="objects: .clickable" emitevents="true"
+            cursor="fuse: false; rayOrigin: mouse;">
+
+            <!-- Обертка для модели с обработчиком жестов -->
+            <!-- rotationFactor: 0.005 - супер плавное вращение -->
+            <a-entity id="model-wrapper" class="clickable"
+                gesture-handler="minScale: 0.25; maxScale: 10; rotationFactor: 0.005" position="0 0 0" scale="1 1 1">
+                <!-- 3D Модель Лошадки (GLB) -->
+                <!-- scale="2 2 2" чтобы была побольше -->
+                <a-entity gltf-model="/models/horse_cardboard.glb" position="0 0 0" rotation="0 0 0"
+                    scale="2 2 2"></a-entity>
+            </a-entity>
+
+        </a-marker>
+
+        <a-entity camera></a-entity>
+
+        <!-- Добавляем свет, чтобы модель не была темной -->
+        <a-light type="ambient" color="white" intensity="2"></a-light>
+        <a-light type="directional" color="white" intensity="1" position="-1 1 1"></a-light>
+    </a-scene>
+
+    <!-- Подсказка -->
+    <div
+        style="position: fixed; top: 10px; width: 100%; text-align: center; z-index: 1; color: white; font-family: sans-serif; background: rgba(0,0,0,0.5); padding: 10px;">
+        Наведите камеру на маркер Hiro<br>
+        <small>Используйте 1 палец для вращения, 2 для зума</small>
+    </div>
+</body>
+
+</html>

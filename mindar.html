@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #start-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            z-index: 999;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Простая A-Frame сцена без AR.js, используем стандартный WebXR если доступен, или fallback -->
+    <!-- Но для начала попробуем чистый A-Frame с 8th Wall или просто 3D на камере -->
+
+    <!-- Давайте попробуем самый базовый A-Frame AR (Hittesting) -->
+    <!-- Это работает в Chrome Android через WebXR -->
+
+    <a-scene webxr="optionalFeatures: hit-test, dom-overlay; overlayElement: #overlay"
+        ar-hit-test="target:#model;type:map">
+        <a-assets>
+            <a-asset-item id="astronaut"
+                src="https://cdn.glitch.global/c4274d6d-d922-4828-b853-3d4229165ce7/astronaut.glb?v=1689254649723"></a-asset-item>
+        </a-assets>
+
+        <!-- Модель, которая будет ставиться по тапу -->
+        <a-entity id="model" gltf-model="#astronaut" position="0 0 -1" scale="0.1 0.1 0.1" visible="false"></a-entity>
+
+        <!-- Курсор для прицеливания -->
+        <a-entity ar-hit-test-emitter id="reticle" position="0 0 -1" rotation="-90 0 0">
+            <a-ring color="white" radius-inner="0.05" radius-outer="0.06"></a-ring>
+        </a-entity>
+
+        <a-camera position="0 1.6 0"></a-camera>
+    </a-scene>
+
+    <div id="overlay">
+        <div
+            style="position: absolute; bottom: 20px; width: 100%; text-align: center; color: white; font-family: sans-serif;">
+            Коснитесь экрана, чтобы поставить Астронавта
+        </div>
+    </div>
+
+    <script>
+        const scene = document.querySelector('a-scene');
+        const model = document.getElementById('model');
+        const reticle = document.getElementById('reticle');
+
+        scene.addEventListener('click', () => {
+            if (reticle.getAttribute('visible')) {
+                model.setAttribute('position', reticle.getAttribute('position'));
+                model.setAttribute('visible', 'true');
+            }
+        });
+
+        // Простой хит-тест логика (эмуляция для теста)
+        // В реальности WebXR сам управляет этим
+    </script>
+</body>
+
+</html>
