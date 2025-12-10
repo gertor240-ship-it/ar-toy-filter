@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Рождественская Лошадка</title>
+
+  <!-- Подключаем Model Viewer -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #f0f0f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+    }
+
+    .ar-button {
+      background-color: white;
+      border-radius: 20px;
+      border: none;
+      position: absolute;
+      bottom: 50px;
+      /* Повыше от края */
+      left: 50%;
+      transform: translateX(-50%);
+      /* По центру */
+      right: auto;
+      padding: 12px 24px;
+      font-weight: 600;
+      font-size: 16px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      z-index: 100;
+      /* Поверх всего */
+    }
+
+    .ar-button:active {
+      transform: translateX(-50%) scale(0.95);
+    }
+  </style>
+  <script type="module" crossorigin src="/ar-toy-filter/assets/index-YP0FEG5d.js"></script>
+</head>
+
+<body>
+
+  <!-- 
+        ar - включает AR режим
+        ar-modes - webxr первым (работает прямо в браузере)
+        camera-controls - разрешает вращать модель пальцем
+        auto-rotate - модель вращается сама пока не трогаешь
+        shadow-intensity - тени
+    -->
+  <model-viewer src="/models/horse_cardboard.glb" ios-src="" poster="/assets/horse.png"
+    alt="Рождественская лошадка (AR)" shadow-intensity="1" camera-controls auto-rotate ar
+    ar-modes="scene-viewer webxr quick-look" ar-scale="auto" ar-placement="floor"> <button slot="ar-button"
+      class="ar-button">
+      👋 Посмотреть в AR
+    </button>
+
+  </model-viewer>
+
+</body>
+
+</html>
